@@ -30,3 +30,14 @@ CREATE TABLE watchlist (
   added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
+CREATE TABLE user_financial_profile (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  investment_experience_level ENUM('beginner','amateur','expert') NOT NULL,
+  risk_tolerance ENUM('low','medium','high') NOT NULL,
+  investment_goal ENUM('short-term growth', 'long-term stable') NOT NULL,
+  annual_income INT NOT NULL,
+  cash_holding INT NOT NULL,
+  debt INT NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);

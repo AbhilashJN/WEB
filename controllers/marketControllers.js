@@ -23,7 +23,7 @@ const getStockInfo = async (req, res) => {
 
 // GET /market/trade
 const getTrades = async (req,res) =>{
-  const userId = 1; // TODO: Replace with user ID from session/token
+  const userId = req.user.id; // TODO: Replace with user ID from session/token
 
   try{
     const [rows] = await db.query(
@@ -41,9 +41,10 @@ const getTrades = async (req,res) =>{
 // POST /market/trade
 const postTrade = async (req, res) => {
   const { symbol, action, quantity } = req.body;
-  const userId = 1; // assuming you already know the logged-in user's ID
+  const userId = req.user.id; // assuming you already know the logged-in user's ID
 
   try {
+    console.log(symbol, action, quantity);
     const quote = await yahooFinance.quote(symbol);
     const price = quote.regularMarketPrice;
 
@@ -57,8 +58,8 @@ const postTrade = async (req, res) => {
         [userId, symbol]
       );
 
-      const netOwned = rows[0].net_quantity || 0;
-
+      const netOwned = parseInt(rows[0].net_quantity) || 0;
+      console.log("net owned",netOwned,quantity);
       if (netOwned < quantity) {
         return res.status(400).json({ message: 'You do not own enough stock to sell.' });
       }
