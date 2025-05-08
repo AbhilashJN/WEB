@@ -18,7 +18,7 @@ const WatchList = ({ watchListItems }) => {
               <tr className="border-b" key={idx}>
                 <td className="py-2 text-gray-600">{item.symbol}</td>
                 <td className="py-2 text-gray-600">${parseFloat(item.price).toFixed(2)}</td>
-                <td className={`py-2 ${item.change.startsWith('-') ? 'text-red-500' : 'text-green-500'}`}>${item.change}</td>
+                <td className={`py-2 ${item.change.startsWith('-') ? 'text-red-500' : 'text-green-500'}`}>{item.change}</td>
               </tr>
               )
             })

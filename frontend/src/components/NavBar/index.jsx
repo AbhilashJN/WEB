@@ -11,9 +11,9 @@ const NavBar = ({ isLoggedIn }) => {
             <div className="max-w-6xl mx-auto flex justify-between items-center">
                 <h1 className="text-xl font-bold text-gray-800">TradeRiser</h1>
                 <div className="space-x-4">
-                    <a href="/profile" className="text-gray-600 hover:text-blue-500">Home</a>
                     <a href="/portfolio" className="text-gray-600 hover:text-blue-500">Portfolio</a>
-                    <a href="/market" className="text-gray-600 hover:text-blue-500">Market</a>
+                    <a href="/analyze" className="text-gray-600 hover:text-blue-500">Analyze</a>
+                    <a href="/trade" className="text-gray-600 hover:text-blue-500">Trade</a>
                     {
                         isLoggedIn
                             ? <a id="logoutBtn" className="text-gray-600 hover:text-red-500 font-semibold" onClick={onLogout}>Logout</a>

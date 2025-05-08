@@ -8,7 +8,7 @@ const initialUserProfile = {
     email: '',
     password:'',
     investment_experience_level: investmentExpLevels[0],
-    risk_tolerance_level: riskToleranceLevels[0],
+    risk_tolerance: riskToleranceLevels[0],
     investment_goal: investmentGoalsValues[0],
     annual_income: 0,
     cash_holding: 0,

@@ -3,7 +3,7 @@ import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
 import { serverUrl, stockSymbolApi, tradeApi, watchlistApi } from "../../constants";
 
-const MarketPage = () => {
+const TradePage = () => {
     const [symbol, setSymbol] = useState('');
     const [quantity, setQuantity] = useState(0);
     const [symbolDisplay, setSymbolDisplay] = useState('');
@@ -235,4 +235,4 @@ const MarketPage = () => {
     );
 }
 
-export default MarketPage;
+export default TradePage;

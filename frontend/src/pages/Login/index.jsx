@@ -32,7 +32,7 @@ const LoginPage = () => {
             setMessage('Login successful. Redirecting to Profile page')
             setMessageColor('green');
             setTimeout(() => {
-                window.location.href = '/profile';
+                window.location.href = '/portfolio';
             }, 1000);
         } catch (error) {
             console.error('Login error:', error);

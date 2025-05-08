@@ -4,28 +4,24 @@ import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
 import TradeHistory from "../../components/TradeHistory";
 import WatchList from "../../components/WatchList";
-import { chatApi, financialProfileApi, investmentExpLevels, investmentGoalsValues, profileApi, riskToleranceLevels, serverUrl, tradeApi, watchlistApi } from "../../constants";
+import { aiAdviceApi, financialProfileApi, investmentExpLevels, investmentGoalsValues, profileApi, riskToleranceLevels, serverUrl, tradeApi, watchlistApi } from "../../constants";
 import ProfileInfo from "../../components/ProfileInfo";
 
-const initialChatLog = { role: 'ai', msg: 'Hello! How can I assist you with trading today?' };
 const initialUserProfile = {
   username: '',
   email: '',
   investment_experience_level: investmentExpLevels[0],
-  risk_tolerance_level: riskToleranceLevels[0],
+  risk_tolerance: riskToleranceLevels[0],
   investment_goal: investmentGoalsValues[0],
   annual_income: 0,
   cash_holding: 0,
   debt: 0
 }
 
-const ProfilePage = ({ username, email }) => {
+const ProfilePage = () => {
   const [userProfile, setUserProfile] = useState(initialUserProfile);
-  const [chatInput, setChatInput] = useState('');
-  const [chatLog, setChatLog] = useState([initialChatLog]);
   const [tradeHistory, setTradeHistory] = useState([]);
   const [watchList, setWatchList] = useState([]);
-  const [isAILoading, setIsAILoading] = useState(false);
   const [profileErrorMsg, setProfileErrorMsg] = useState('');
   const token = localStorage.getItem('token');
 
@@ -112,41 +108,8 @@ const ProfilePage = ({ username, email }) => {
     }
   }
 
-  const onChatInput = (e) => {
-    setChatInput(e.target.value);
-  }
 
-  const onChatSubmit = async () => {
-    const message = chatInput.trim();
-    if (!message) return;
 
-    // Add user's message
-    const userMsg = { role: 'user', msg: message };
-    setChatLog(prevLog => [...prevLog, userMsg]);
-    setIsAILoading(true);
-    // Send message to backend AI route
-    try {
-      const url = serverUrl + chatApi;
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ message })
-      });
-      const data = await response.json();
-      const aiResponse = { role: 'ai', msg: data.reply };
-      setIsAILoading(false);
-      setChatLog(prevLog => [...prevLog, aiResponse]);
-    } catch (err) {
-      console.error('AI Error:', err);
-      const aiResponse = { role: 'ai', msg: "Something went wrong", isError: true };
-      setIsAILoading(false);
-      setChatLog(prevLog => [...prevLog, aiResponse]);
-    }
-    setChatInput('');
-  }
 
   async function loadWatchlist() {
     try {
@@ -202,7 +165,7 @@ const ProfilePage = ({ username, email }) => {
     <>
       <NavBar isLoggedIn={true} />
 
-      <div className="max-w-6xl mx-auto py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto py-8 grid grid-cols-1 md:grid-cols-5 gap-8">
         {/* Left Column  */}
         <div className="md:col-span-1">
           <ProfileInfo profileInfo={userProfile} setProfileInfo={setUserProfile} errorMsg={profileErrorMsg} onSubmit={updateFinancialProfile} />
@@ -212,8 +175,12 @@ const ProfilePage = ({ username, email }) => {
         <div className="md:col-span-2">
           <TradeHistory tradeHistoryItems={tradeHistory} />
           <WatchList watchListItems={watchList} />
-          <ChatBox chatInputValue={chatInput} onChatInput={onChatInput} onChatSubmit={onChatSubmit} chatLog={chatLog} isLoading={isAILoading} />
         </div>
+
+        <div className="md:col-span-2">
+        <ChatBox chatEndpoint={aiAdviceApi} initialMessage={"Hello! Do you need any recommendations on your portfolio, spending, savings or investments?"}/> 
+        </div>
+
       </div>
 
 

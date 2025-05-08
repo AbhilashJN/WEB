@@ -151,6 +151,9 @@ const addToWatchlist = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+
 const getWatchlist = async (req, res) => {
   const userId = req.user?.id || 1;
 
@@ -160,7 +163,15 @@ const getWatchlist = async (req, res) => {
       [userId]
     );
 
-    res.json(rows);
+    let rowsWithLatestPrice = await Promise.all(rows.map(async (rowObj)=>{
+      const symbol = rowObj.symbol;
+      const quote = await yahooFinance.quote(symbol);
+      const latestPrice = quote.regularMarketPrice.toFixed(2);
+      const latestChange = ((quote.regularMarketChangePercent || 0) * 1).toFixed(2)
+      return {...rowObj, price: `${latestPrice}`, change: `${latestChange}%`}
+    }))
+
+    res.json(rowsWithLatestPrice);
   } catch (error) {
     console.error('Get watchlist error:', error);
     res.status(500).json({ message: 'Server error' });
