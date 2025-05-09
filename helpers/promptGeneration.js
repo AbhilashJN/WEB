@@ -77,6 +77,7 @@ const portfolioAdvice = async(userMsg, userId)=>{
     Annual Income is ${user_financial_info.annual_income}.
     I currently have ${user_financial_info.cash_holding} in cash.
     I also hold ${user_financial_info.total_stocks_value} in stocks.
+    I have ${user_financial_info.debt} in debt.
     My investment experience level is ${user_financial_info.investment_experience_level}.
     My risk tolerance is ${user_financial_info.risk_tolerance}.
     My goal for investment is ${user_financial_info.investment_goal}.
