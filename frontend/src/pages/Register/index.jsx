@@ -196,7 +196,7 @@ const RegisterPage = () => {
                     style={{ color: messageColor }}
                 >
                     {message}<br />
-                    <a href="/login">Login</a>
+                    <a href="/login">Click here to Login</a>
                 </div>
             </div>
         </div>

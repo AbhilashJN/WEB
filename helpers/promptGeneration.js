@@ -3,7 +3,7 @@ const pool=require('../confiq/db');
 
 
 const generalQuery=(userMessage)=>{
-    const prompt = "Answer this question in brief, in 5 sentences or less."
+    const prompt = "Answer this question in brief, in 10 sentences or less."
     const fullPrompt = `${prompt} ${userMessage}`;
     return fullPrompt;
 }

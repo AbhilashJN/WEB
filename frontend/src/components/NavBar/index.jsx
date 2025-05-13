@@ -1,7 +1,7 @@
 const NavBar = ({ isLoggedIn }) => {
-    const onLogout=()=>{
+    const onLogout = () => {
         localStorage.removeItem("token");
-        window.location.href="/login";
+        window.location.href = "/login";
     }
 
 
@@ -11,13 +11,15 @@ const NavBar = ({ isLoggedIn }) => {
             <div className="max-w-6xl mx-auto flex justify-between items-center">
                 <h1 className="text-xl font-bold text-gray-800">TradeRiser</h1>
                 <div className="space-x-4">
-                    <a href="/portfolio" className="text-gray-600 hover:text-blue-500">Portfolio</a>
-                    <a href="/analyze" className="text-gray-600 hover:text-blue-500">Analyze</a>
-                    <a href="/trade" className="text-gray-600 hover:text-blue-500">Trade</a>
                     {
-                        isLoggedIn
-                            ? <a id="logoutBtn" className="text-gray-600 hover:text-red-500 font-semibold" onClick={onLogout}>Logout</a>
-                            : <a href="/login" className="text-gray-600 hover:text-blue-500">Log in</a>
+                        isLoggedIn ?
+                            <>
+                                <a href="/portfolio" className="text-gray-600 hover:text-blue-500">Portfolio</a>
+                                <a href="/analyze" className="text-gray-600 hover:text-blue-500">Analyze</a>
+                                <a href="/trade" className="text-gray-600 hover:text-blue-500">Trade</a>
+                                <a id="logoutBtn" className="text-gray-600 hover:text-red-500 font-semibold" onClick={onLogout}>Logout</a>
+                            </>
+                        : <a href="/login" className="text-gray-600 hover:text-blue-500">Log in</a>
                     }
                 </div>
             </div>

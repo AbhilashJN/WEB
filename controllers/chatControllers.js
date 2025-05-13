@@ -29,7 +29,7 @@ const chatWithAI = async (req, res) => {
 
   try {
     const msg = generalQuery(message);
-    console.log("msg",msg)
+    console.log("Full prompt",msg);
     const response = await axios.post('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
       model: 'gemini-2.0-flash', 
       messages: [
@@ -58,7 +58,7 @@ const aiStockAnalyze =async (req, res) => {
   try {
     const {fullPrompt, stockInfo} = await stockAnalyze(symbol);
     const msg = fullPrompt;
-    console.log("msg",msg)
+    console.log("Full prompt",msg);
     const response = await axios.post('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
       model: 'gemini-2.0-flash', 
       messages: [
@@ -87,7 +87,7 @@ const aiAdvice = async(req,res) =>{
   try {
     const fullPrompt = await portfolioAdvice(message, userId);
     const msg = fullPrompt;
-    console.log("msg",msg)
+    console.log("Full prompt",msg);
     const response = await axios.post('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
       model: 'gemini-2.0-flash', 
       messages: [
